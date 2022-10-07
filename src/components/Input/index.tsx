@@ -2,7 +2,7 @@ import { Container, ErrorMessage } from "./styles";
 import { UseFormRegister } from "react-hook-form";
 
 interface FileData {
-  [key: string]: File;
+  [key: string]: FileList;
 }
 
 interface InputProps {

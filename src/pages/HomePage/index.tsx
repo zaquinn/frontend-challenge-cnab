@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 
 interface FileData {
-  [key: string]: File;
+  [key: string]: FileList;
 }
 
 const fileSchema = yup.object().shape({
@@ -34,6 +34,7 @@ export const HomePage = () => {
   });
 
   const onSubmit = (data: FileData) => {
+    console.log(data["file"][0]);
     setFileInfo(data);
   };
   return (
