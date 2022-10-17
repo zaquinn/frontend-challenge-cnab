@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { api } from "../../services/api";
 
 interface FileData {
   [key: string]: FileList;
@@ -33,14 +34,23 @@ export const HomePage = () => {
     resolver: yupResolver(fileSchema),
   });
 
-  const onSubmit = (data: FileData) => {
-    console.log(data["file"][0]);
+  const onSubmit = async (data: FileData) => {
+    const formData = new FormData();
+    formData.append("file", data["file"][0]);
+
+    try {
+      const response = await api.post("/api/cnabparser/", formData);
+
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
     setFileInfo(data);
   };
   return (
     <Container>
       <CenterContainer>
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
           <Input
             errors={errors.file?.message}
             register={register}

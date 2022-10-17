@@ -10,7 +10,7 @@ interface InputProps {
   errors: string | undefined;
   label: string;
   name: string;
-  type: string;
+  type?: string;
   display?: string;
   accept?: string;
 }
