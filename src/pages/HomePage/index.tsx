@@ -1,10 +1,10 @@
-import { Input } from "../../components/Input";
-import { Container, CenterContainer, Form, Button } from "./styles";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { Input } from "../../components/Input";
 import { api } from "../../services/api";
+import { Button, CenterContainer, Container, Form } from "./styles";
 
 interface FileData {
   [key: string]: FileList;
@@ -23,7 +23,24 @@ const fileSchema = yup.object().shape({
       return value && value[0] && value[0].type === "text/plain";
     }),
 });
-
+// const schemaEmail = yup.object().shape({
+//   files: yup
+//       .mixed()
+//       .test('required', 'Envio de arquivo obrigatório', (files) => {
+//           return files && files.length > 0
+//       })
+//       .test('fileSize', 'Os arquivos são grandes demais. Tamanho máximo: 5mb', (files) => {
+//           const totalSize = files.length > 0 && files.reduce((acc, file) => acc + file.size, 0)
+//           return files && files.length && totalSize <= 5000000
+//       })
+//       .test('type', 'Formatos suportados: .png, .jpeg, .pdf', (files) => {
+//           const filterFilesType =
+//               files.length > 0 && files.filter((file) => ['image/png', 'image/jpeg', 'application/pdf'].includes(file.type))
+//           return files && files.length && filterFilesType.length === files.length
+//       }),
+//   emailSubject: yup.string().required('Assunto do e-mail obrigatório'),
+//   emailBody: yup.string().required('Corpo do e-mail obrigatório'),
+// })
 export const HomePage = () => {
   const [fileInfo, setFileInfo] = useState<FileData>();
   const {
